@@ -31,17 +31,15 @@
 </template>
 
 <script>
-    import Global from "./../Global";
-    import axios from 'axios';
+import EmpleadosService from './../services/EmpleadosService';
+const service = new EmpleadosService();
 
     export default{
         name: "EmpleadosDetalle",
         methods: {
             buscarEmpleado() {
-                var request = "/api/empleados/" + this.idEmpleado;
-                var url = Global.urlempleados + request;
-                axios.get(url).then(response => {
-                    this.empleado = response.data
+                service.findEmpleado(this.idEmpleado).then(result => {
+                    this.empleado = result;
                 });
             }
         },
@@ -52,10 +50,8 @@
                 empleado: null
             }
         }, mounted() {
-            var request = "/api/empleados";
-            var url = Global.urlempleados + request;
-            axios.get(url).then(response => {
-                this.empleados = response.data
+            service.getEmpleados().then(result => {
+                this.empleados = result;
             });
         }
     }

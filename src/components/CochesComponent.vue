@@ -12,10 +12,12 @@
 </template>
 
 <script>
-    //NECESITAMOS IMPORTAR GLOBAL
-    import Global from './../Global';
-    //NECESITAMOS IMPORTAR axios
-    import axios from 'axios';
+import CochesService from './../services/CochesService';
+const service = new CochesService();
+    // //NECESITAMOS IMPORTAR GLOBAL
+    // import Global from './../Global';
+    // //NECESITAMOS IMPORTAR axios
+    // import axios from 'axios';
 
     export default {
         name: "CochesComponent"
@@ -25,10 +27,8 @@
             }
         }, methods: {
             loadCoches() {
-                var request = "/webresources/coches";
-                var url = Global.urlcoches + request;
-                axios.get(url).then(response => {
-                    this.coches = response.data;
+                service.getCoches().then(result => {
+                    this.coches = result;
                 });
             }
         }, mounted() {
